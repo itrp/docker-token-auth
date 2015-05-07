@@ -1,0 +1,7 @@
+# -*- mode: ruby -*-¬
+
+# The issuer of the token, typically the fqdn of the authorization server. 
+variable :TOKEN_ISSUER
+
+# Path to private key which was used to sign the token.
+variable :PRIVATE_KEY_PATH
