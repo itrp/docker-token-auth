@@ -54,8 +54,9 @@ auth:
     rootcertbundle: <path-to-cert-bundle>
 ```
 
-The `auth.token.issuer` setting should match the `TOKEN_ISSUER` variable used in
-the authorization server.
+The `auth.token.realm` setting should be set to the url on which the
+authorization can be reached. The `auth.token.issuer` setting should match the
+`TOKEN_ISSUER` variable used in the authorization server.
 
 See https://github.com/docker/distribution/blob/master/docs/configuration.md#auth
 for more information on configuring the registry.
