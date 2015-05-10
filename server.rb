@@ -9,22 +9,22 @@ require 'envied'
 ENVied.require
 
 set :show_exceptions, false
+set :bind, '0.0.0.0'
 
-get '/v2/token' do
+get '/v2/token/' do
   scope = Scope.parse(params['scope'])
   service = params['service']
   account = params['account']
 
   # Check if the current account is authorized for given scope and service.
-  authorized = CheckAuthorization.new(account, scope).check
-  raise 'Not authorized' unless authorized
+  authorized = CheckAuthorization.new(account, service, scope).check
+  halt 401 unless authorized
 
   json :token => GenerateJwtToken.new(account, service, scope).generate
 end
 
-# TODO: Not sure what the error code should be
 error do
-  "Not authorized..."
+  "Something went wrong..."
 end
 
 require_relative 'models/scope'

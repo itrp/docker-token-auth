@@ -1,0 +1,17 @@
+---
+services:
+  - name: registry.example.com
+    accounts:
+      - name: bob
+        authorizations:
+          - namespace: foo
+            image: bar
+            actions: pull
+
+      - name: sarah
+        authorizations:
+          - namespace: baz
+            image: '*'
+            actions:
+              - push
+              - pull

@@ -4,16 +4,24 @@ class CheckAuthorization
 
   attr_accessor :scope
 
-  def initialize(account, scope)
+  def initialize(account, service, scope)
     @account = account
     @scope = scope
+    @service = service
   end
 
-  # Checks if there is an authorization for which the given account and scope
+  # Checks if there is an authorization for which the given account and/or scope
   # are authorized.
   def check
-    account = config['accounts'].detect { |a| a['name'] == @account }
+    service = config['services'].detect { |a| a['name'] == @service }
+    return false unless service
+
+    account = service['accounts'].detect { |a| a['name'] == @account }
     return false unless account
+
+    # Return true if no scope is provided (e.g. for a login request). We can
+    # only check if the service and the account exist.
+    return true unless scope
 
     account['authorizations'].one? do |a|
       namespace_matches?(a['namespace']) &&

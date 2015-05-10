@@ -25,7 +25,7 @@ class GenerateJwtToken
       hash['nbf']    = not_before
       hash['iat']    = issued_at
       hash['jti']    = jwt_id
-      hash['access'] = access
+      hash['access'] = access if scope
     end
   end
 

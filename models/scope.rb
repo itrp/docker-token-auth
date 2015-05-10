@@ -11,6 +11,8 @@ class Scope
   #
   # Returns a new Scope.
   def self.parse(scope)
+    return unless scope
+
     repository = scope.split(':')[1]
     namespace, image = if repository.include?('/')
                          repository.split('/')
